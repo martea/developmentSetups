@@ -6,7 +6,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     entry: {
-        'site': './Src/js/index.js'
+        'site': './Src/js/index.js',
+        'site': './src/site.less'
     },
     output: {
         filename: './scripts/[name].bundle.js',
@@ -29,8 +30,7 @@ module.exports = {
         }
     },
     module: {
-        rules: [
-            {
+        rules: [{
                 test: /\.js$/,
                 exclude: /(node_modules)/,
                 loader: 'babel-loader',
@@ -40,8 +40,7 @@ module.exports = {
                 use: ExtractTextPlugin
                     .extract({
                         fallback: 'style-loader',
-                        use: [
-                            {
+                        use: [{
                                 loader: 'css-loader',
                                 options: {
                                     modules: false,
@@ -61,6 +60,40 @@ module.exports = {
                             },
                             {
                                 loader: 'sass-loader',
+                                options: {
+                                    sourceMap: true
+                                }
+                            }
+                        ]
+                    })
+            },
+            {
+                test: /\.less$/,
+                use: ExtractTextPlugin
+                    .extract({
+                        fallback: 'style-loader',
+                        use: [{
+                                loader: 'css-loader',
+                                options: {
+                                    modules: false,
+                                    sourceMap: true
+                                }
+                            },
+                            {
+                                loader: 'postcss-loader',
+                                options: {
+                                    sourceMap: true,
+                                    plugins: () => {
+                                        return [
+                                            require('autoprefixer')({
+                                                browsers: 'last 5 versions'
+                                            })
+                                        ];
+                                    }
+                                }
+                            },
+                            {
+                                loader: 'less-loader',
                                 options: {
                                     sourceMap: true
                                 }
