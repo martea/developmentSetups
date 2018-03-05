@@ -14,16 +14,13 @@ module.exports = {
         }
     },
     module: {
-        rules: [
-            //Stylesheets
-            {
+        rules: [{
                 test: /\.less$/,
                 use: ExtractTextPlugin.extract({
                     fallback: "style-loader",
                     use: ["css-loader", "less-loader"]
                 })
             },
-            //Javascript
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
