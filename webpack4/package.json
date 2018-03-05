@@ -4,9 +4,9 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "dev": "webpack --mode development --verbose --debug",
-        "watch": "webpack --mode development --verbose --debug --watch",
-        "build": "webpack --mode production --verbose --debug"
+        "dev": "webpack --mode development",
+        "watch": "webpack --mode development --watch",
+        "build": "webpack --mode production"
     },
     "keywords": [],
     "author": "",
@@ -21,6 +21,7 @@
         "babel-preset-flow": "^6.23.0",
         "babel-preset-stage-2": "^6.24.1",
         "css-loader": "^0.28.10",
+        "extract-text-webpack-plugin": "^4.0.0-beta.0",
         "less": "^3.0.1",
         "less-loader": "^4.0.6",
         "node-sass": "^4.7.2",

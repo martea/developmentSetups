@@ -1,13 +1,16 @@
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const path = require("path");
 
 module.exports = {
     entry: {
-        "site": "./src/js/index.js",
-        "style": "./src/scss/site.scss",
+        "site-bundle": "./src/js/index.js",
+        "site-bundle": "./src/less/site.less"
     },
+
     resolve: {
         alias: {
-            $services: path.resolve(__dirname, "./src/js/module/")
+            $services: path.resolve(__dirname, "./src/js/services/"),
+            $models: path.resolve(__dirname, "./src/js/models/")
         }
     },
     module: {
@@ -15,25 +18,10 @@ module.exports = {
             //Stylesheets
             {
                 test: /\.less$/,
-                use: [
-                    // creates style nodes from JS strings
-                    { loader: "style-loader" },
-                    // translates CSS into CommonJS
-                    { loader: "css-loader" },
-                    // compiles Less to CSS
-                    { loader: "less-loader" }
-                ]
-            },
-            {
-                test: /\.scss$/,
-                use: [
-                    // creates style nodes from JS strings
-                    { loader: "style-loader" },
-                    // translates CSS into CommonJS
-                    { loader: "css-loader" },
-                    // compiles Sass to CSS
-                    { loader: "sass-loader" }
-                ]
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: ["css-loader", "less-loader"]
+                })
             },
             //Javascript
             {
@@ -44,5 +32,10 @@ module.exports = {
                 }
             }
         ]
-    }
+    },
+    plugins: [
+        new ExtractTextPlugin({
+            filename: "[name].css"
+        })
+    ]
 };
