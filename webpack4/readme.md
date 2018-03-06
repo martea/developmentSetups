@@ -1,6 +1,6 @@
-#webpack 4
-```
-npm i
-npm run dev|build|watch
+# webpack 4
 
+```
+> npm i
+> npm run dev|build|watch
 ```
